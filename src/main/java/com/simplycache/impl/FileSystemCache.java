@@ -21,9 +21,4 @@ public class FileSystemCache<K, V> extends AbstractCache<K, V> {
     public V get(K key) {
       return null;
     }
-
-    @Override
-    public int size() {
-      return 0;
-    }
 }

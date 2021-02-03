@@ -32,21 +32,22 @@ public interface Cache<K, V> {
      * @param key
      * @return true if key exists
      */
-/*    boolean contains(K key);
+    boolean contains(K key);
 
-    *//**
+    /**
      * Remove key from cache
      * @param key
-     *//*
+     */
     void remove(K key);
 
-    *//**
+    /**
      * Remove all keys in cache
-     *//*
+     */
     void clearCache();
+
 
     default boolean isEmpty(){
       return size() == 0;
-    }*/
+    }
 
 }

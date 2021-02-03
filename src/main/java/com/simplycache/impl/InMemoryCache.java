@@ -11,8 +11,6 @@ import com.simplycache.evictionpolicy.EvictionPolicy;
  */
 public class InMemoryCache<K, V> extends AbstractCache<K, V> {
 
-    private Container<K, V> cache;
-
     public InMemoryCache(int size, EvictionPolicy evictionPolicy) {
      super(size, evictionPolicy);
     }
@@ -25,10 +23,5 @@ public class InMemoryCache<K, V> extends AbstractCache<K, V> {
     @Override
     public V get(K key) {
       return cache.get(key);
-    }
-
-    @Override
-    public int size() {
-      return cache.size();
     }
 }

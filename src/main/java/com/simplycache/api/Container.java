@@ -8,6 +8,31 @@ package com.simplycache.api;
 public interface Container<K,V> {
 
     V put(K key, V val);
+
     V get(K key);
+
     int size();
+
+    /**
+     * Check if provided Key already exists in the Cache
+     * @param key
+     * @return true if key exists
+     */
+    boolean contains(K key);
+
+    /**
+     * Remove key from cache
+     * @param key
+     */
+    void remove(K key);
+
+    /**
+     * Remove all keys in cache
+     */
+    void clearCache();
+
+
+    default boolean isEmpty(){
+      return size() == 0;
+    }
 }
