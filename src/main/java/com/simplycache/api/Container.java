@@ -7,8 +7,20 @@ package com.simplycache.api;
  */
 public interface Container<K,V> {
 
+  /**
+   * put a key, value to the container. if container size exceeds,
+   * key will be replaced based on eviction policy
+   * @param key key
+   * @param val value
+   * @return key
+   */
     V put(K key, V val);
 
+  /**
+   * Get value of key. Will update the access of the key
+   * @param key
+   * @return
+   */
     V get(K key);
 
     int size();

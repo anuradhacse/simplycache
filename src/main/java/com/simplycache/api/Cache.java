@@ -3,6 +3,7 @@ package com.simplycache.api;
 /**
  * @author anuradhaj Date: 2/2/21
  * Interface for defining cache methods.
+ * See Implementing classes {@link com.simplycache.impl.InMemoryCache}, {@link com.simplycache.impl.FileSystemCache}
  */
 public interface Cache<K, V> {
 

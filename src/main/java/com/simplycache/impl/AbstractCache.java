@@ -12,7 +12,7 @@ import com.simplycache.evictionpolicy.EvictionPolicy;
  * @author anuradhaj Date: 2/3/21
  */
 abstract class AbstractCache<K, V> implements Cache<K, V> {
-     //put common code of Inmemory and FileSystem
+
      Container<K, V> cache;
 
      AbstractCache(int size, EvictionPolicy evictionPolicy){
