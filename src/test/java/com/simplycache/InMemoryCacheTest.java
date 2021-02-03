@@ -2,6 +2,7 @@ package com.simplycache;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.simplycache.impl.InMemoryCache;
 import org.junit.jupiter.api.Test;
 
 /**
