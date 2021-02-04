@@ -1,13 +1,10 @@
 package com.simplycache.impl;
 
 import static com.simplycache.common.Error.INITIAL_SIZE_ERROR;
-import static com.simplycache.evictionpolicy.EvictionPolicy.LFU;
-import static com.simplycache.evictionpolicy.EvictionPolicy.LRU;
 
 import com.simplycache.api.Cache;
-import com.simplycache.api.Container;
+import com.simplycache.container.Container;
 import com.simplycache.evictionpolicy.EvictionPolicy;
-import java.util.Map;
 
 /**
  * @author anuradhaj Date: 2/3/21

@@ -1,6 +1,6 @@
 package com.simplycache.impl;
 
-import com.simplycache.api.Container;
+import com.simplycache.container.Container;
 import java.util.Map;
 
 /**
