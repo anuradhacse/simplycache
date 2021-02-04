@@ -7,4 +7,5 @@ package com.simplycache.common;
 public final class Constants {
 
     public static final int DEFAULT_CACHE_SIZE = 10;
+    public static final long FREQUENCY = 1;
 }

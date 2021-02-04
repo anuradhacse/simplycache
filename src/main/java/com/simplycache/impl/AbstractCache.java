@@ -7,6 +7,7 @@ import static com.simplycache.evictionpolicy.EvictionPolicy.LRU;
 import com.simplycache.api.Cache;
 import com.simplycache.api.Container;
 import com.simplycache.evictionpolicy.EvictionPolicy;
+import java.util.Map;
 
 /**
  * @author anuradhaj Date: 2/3/21
@@ -22,7 +23,7 @@ abstract class AbstractCache<K, V> implements Cache<K, V> {
 
       switch (evictionPolicy) {
         case LFU:
-          cache = new LRUCache<>(size);
+          cache = new LFUCache(size);
           break;
         case LRU:
           cache = new LRUCache<>(size);
@@ -40,7 +41,7 @@ abstract class AbstractCache<K, V> implements Cache<K, V> {
 
     @Override
     public boolean contains(K key) {
-      return cache.contains(key);
+      return cache.containsKey(key);
     }
 
     @Override
@@ -50,6 +51,6 @@ abstract class AbstractCache<K, V> implements Cache<K, V> {
 
     @Override
     public void clearCache() {
-      cache.clearCache();
+      cache.clear();
     }
 }

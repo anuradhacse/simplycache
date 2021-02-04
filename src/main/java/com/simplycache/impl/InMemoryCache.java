@@ -1,8 +1,5 @@
 package com.simplycache.impl;
 
-import static com.simplycache.common.Error.INITIAL_SIZE_ERROR;
-
-import com.simplycache.api.Container;
 import com.simplycache.evictionpolicy.EvictionPolicy;
 
 /**

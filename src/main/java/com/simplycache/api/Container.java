@@ -30,7 +30,7 @@ public interface Container<K,V> {
      * @param key
      * @return true if key exists
      */
-    boolean contains(K key);
+    boolean containsKey(K key);
 
     /**
      * Remove key from cache
@@ -41,7 +41,7 @@ public interface Container<K,V> {
     /**
      * Remove all keys in cache
      */
-    void clearCache();
+    void clear();
 
 
     default boolean isEmpty(){
