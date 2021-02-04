@@ -51,6 +51,12 @@ public class LFUContainer<K,V> extends AbstractContainer<K, V> {
       return cache.get(key);
     }
 
+    @Override
+    public void clear() {
+      cache.clear();
+      frequencyMap.clear();
+    }
+
     private K getReplacingKey(){
       sortedMap.clear();
       sortedMap.putAll(frequencyMap);

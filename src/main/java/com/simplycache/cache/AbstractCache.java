@@ -12,12 +12,15 @@ import com.simplycache.evictionpolicy.EvictionPolicy;
  */
 abstract class AbstractCache<K, V, T> implements Cache<K, V> {
 
-     Container<K, T> cache;
+     protected Container<K, T> cache;
+     private final int initialSize;
 
      AbstractCache(int size, EvictionPolicy evictionPolicy){
       if(size <= 0) {
         throw new IllegalArgumentException(INITIAL_SIZE_ERROR);
       }
+
+      this.initialSize = size;
 
       switch (evictionPolicy) {
         case LFU:
@@ -50,5 +53,9 @@ abstract class AbstractCache<K, V, T> implements Cache<K, V> {
     @Override
     public void clearCache() {
       cache.clear();
+    }
+
+    protected boolean isCacheFull(){
+      return initialSize == cache.size();
     }
 }
