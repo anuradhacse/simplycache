@@ -10,13 +10,13 @@ import java.util.TreeMap;
 /**
  * @author anuradhaj Date: 2/3/21
  */
-public class LFUCache<K,V> extends AbstractContainer<K, V> {
+public class LFUContainer<K,V> extends AbstractContainer<K, V> {
 
     private final SortedMap<K,Long> sortedMap;
     private final Map<K, Long> frequencyMap;
     private final int initialCapacity;
 
-    public LFUCache(int size) {
+    public LFUContainer(int size) {
       super(new HashMap<>(size));
       initialCapacity = size;
       frequencyMap = new HashMap<>();

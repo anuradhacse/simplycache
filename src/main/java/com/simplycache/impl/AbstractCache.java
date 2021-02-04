@@ -9,9 +9,9 @@ import com.simplycache.evictionpolicy.EvictionPolicy;
 /**
  * @author anuradhaj Date: 2/3/21
  */
-abstract class AbstractCache<K, V> implements Cache<K, V> {
+abstract class AbstractCache<K, V, T> implements Cache<K, V> {
 
-     Container<K, V> cache;
+     Container<K, T> cache;
 
      AbstractCache(int size, EvictionPolicy evictionPolicy){
       if(size <= 0) {
@@ -20,13 +20,13 @@ abstract class AbstractCache<K, V> implements Cache<K, V> {
 
       switch (evictionPolicy) {
         case LFU:
-          cache = new LFUCache(size);
+          cache = new LFUContainer<>(size);
           break;
         case LRU:
-          cache = new LRUCache<>(size);
+          cache = new LRUContainer<>(size);
           break;
         default:
-          cache = new LRUCache<>(size);
+          cache = new LRUContainer<>(size);
           break;
       }
     }

@@ -1,9 +1,12 @@
 package com.simplycache.container;
 
+import com.simplycache.impl.LFUContainer;
+import com.simplycache.impl.LRUContainer;
+
 /**
  * @author anuradhaj Date: 2/3/21
  * Cache data holding container with eviction policy support
- * See implementing classes {@link com.simplycache.impl.LRUCache}}, {@link com.simplycache.impl.LFUCache}
+ * See implementing classes {@link LRUContainer}}, {@link LFUContainer}
  */
 public interface Container<K,V> {
 
