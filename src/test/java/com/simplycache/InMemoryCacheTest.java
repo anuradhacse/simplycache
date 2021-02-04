@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 public class InMemoryCacheTest {
 
   @Test
-  public void testLRUCache(){
+  public void testInMemoryLRUCache(){
     Cache<Integer, String> cache = new InMemoryCache<>(3, EvictionPolicy.LRU);
 
     cache.put(1, "A");
@@ -61,7 +61,7 @@ public class InMemoryCacheTest {
   }
 
   @Test
-  public void testLFUCache(){
+  public void testInMemoryLFUCache(){
     Cache<Integer, String> cache = new InMemoryCache<>(3, EvictionPolicy.LFU);
 
     cache.put(1, "A");
