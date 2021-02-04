@@ -1,4 +1,4 @@
-package com.simplycache.impl;
+package com.simplycache.container;
 
 import com.simplycache.container.Container;
 import java.util.Map;

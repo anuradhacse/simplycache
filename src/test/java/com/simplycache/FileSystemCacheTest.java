@@ -1,8 +1,8 @@
 package com.simplycache;
 
-import com.simplycache.api.Cache;
+import com.simplycache.cache.Cache;
 import com.simplycache.evictionpolicy.EvictionPolicy;
-import com.simplycache.impl.FileSystemCache;
+import com.simplycache.cache.FileSystemCache;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

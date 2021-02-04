@@ -1,4 +1,4 @@
-package com.simplycache.impl;
+package com.simplycache.cache;
 
 import com.simplycache.evictionpolicy.EvictionPolicy;
 

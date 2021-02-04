@@ -1,4 +1,4 @@
-package com.simplycache.impl;
+package com.simplycache.container;
 
 import static com.simplycache.common.Constants.FREQUENCY;
 

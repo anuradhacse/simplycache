@@ -2,9 +2,9 @@ package com.simplycache;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.simplycache.api.Cache;
+import com.simplycache.cache.Cache;
 import com.simplycache.evictionpolicy.EvictionPolicy;
-import com.simplycache.impl.InMemoryCache;
+import com.simplycache.cache.InMemoryCache;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

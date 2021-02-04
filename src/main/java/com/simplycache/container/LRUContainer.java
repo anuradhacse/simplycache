@@ -1,6 +1,5 @@
-package com.simplycache.impl;
+package com.simplycache.container;
 
-import com.simplycache.api.Cache;
 import java.util.LinkedHashMap;
 
 /**
@@ -14,7 +13,7 @@ public class LRUContainer<K, V> extends AbstractContainer<K, V> {
     private static final float LOAD_FACTOR = 0.75f;
     private static final boolean ACCESS_ORDER = true;
 
-    LRUContainer(int initialCapacity) {
+    public LRUContainer(int initialCapacity) {
       super( new LinkedHashMap<K, V>(initialCapacity, LOAD_FACTOR, ACCESS_ORDER){
         @Override
         protected boolean removeEldestEntry(java.util.Map.Entry<K, V> eldest) {

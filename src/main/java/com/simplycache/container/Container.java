@@ -1,8 +1,5 @@
 package com.simplycache.container;
 
-import com.simplycache.impl.LFUContainer;
-import com.simplycache.impl.LRUContainer;
-
 /**
  * @author anuradhaj Date: 2/3/21
  * Cache data holding container data structure with eviction policy support
