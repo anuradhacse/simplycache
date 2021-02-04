@@ -5,5 +5,8 @@ package com.simplycache.common;
  * Common Error codes and messages
  */
 public final class Error {
+
+  private Error(){}
+
   public static final String INITIAL_SIZE_ERROR = "Initial Size should be greater than 0";
 }
