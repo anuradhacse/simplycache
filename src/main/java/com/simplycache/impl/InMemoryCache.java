@@ -4,7 +4,8 @@ import com.simplycache.evictionpolicy.EvictionPolicy;
 
 /**
  * @author anuradhaj Date: 2/2/21
- * InMemory cache implementation, Not thread safe
+ * InMemory cache implementation
+ * This class is not thread safe
  */
 public class InMemoryCache<K, V> extends AbstractCache<K, V, V> {
 

@@ -5,7 +5,7 @@ import com.simplycache.impl.LRUContainer;
 
 /**
  * @author anuradhaj Date: 2/3/21
- * Cache data holding container with eviction policy support
+ * Cache data holding container data structure with eviction policy support
  * See implementing classes {@link LRUContainer}}, {@link LFUContainer}
  */
 public interface Container<K,V> {

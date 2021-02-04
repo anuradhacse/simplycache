@@ -5,7 +5,9 @@ import java.util.LinkedHashMap;
 
 /**
  * @author anuradhaj Date: 2/3/21
- * LRU Cache implementation which uses a Linked HashMap
+ * LRU Cache implementation which uses a LinkedHashMap
+ * Keys are removed when size exeeds max size based on the LRU policy
+ * LRU key is updated for every put and get
  */
 public class LRUContainer<K, V> extends AbstractContainer<K, V> {
 

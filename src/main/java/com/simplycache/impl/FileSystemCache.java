@@ -19,6 +19,8 @@ import java.nio.file.Path;
 
 /**
  * @author anuradhaj Date: 2/3/21
+ * Cache which use file to store values
+ * This class in not Thread safe
  */
 public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K, V, String>{
 

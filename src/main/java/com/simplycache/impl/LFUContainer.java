@@ -9,6 +9,9 @@ import java.util.TreeMap;
 
 /**
  * @author anuradhaj Date: 2/3/21
+ * LRU Cache implementation which using a HashMap and a TreeMap
+ * Keys are removed when size exeeds max size based on the LFU policy
+ * SortedMap is used to get the LFU key
  */
 public class LFUContainer<K,V> extends AbstractContainer<K, V> {
 
