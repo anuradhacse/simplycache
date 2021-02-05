@@ -37,7 +37,7 @@ public class LFUContainer<K,V> extends AbstractContainer<K, V> {
         frequencyMap.put(key, FREQUENCY);
         return cache.put(key, val);
       }
-      K replacingKey = getReplacingKey();
+      K replacingKey = getKeyToReplace();
       cache.remove(replacingKey);
       frequencyMap.remove(replacingKey);
       return cache.put(key, val);
@@ -57,7 +57,8 @@ public class LFUContainer<K,V> extends AbstractContainer<K, V> {
       frequencyMap.clear();
     }
 
-    private K getReplacingKey(){
+    @Override
+    public K getKeyToReplace(){
       sortedMap.clear();
       sortedMap.putAll(frequencyMap);
       return sortedMap.firstKey();

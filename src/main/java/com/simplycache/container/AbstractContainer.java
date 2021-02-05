@@ -43,4 +43,8 @@ public abstract class AbstractContainer<K,V> implements Container<K,V> {
     public void clear() {
       cache.clear();
     }
+
+    public K getKeyToReplace(){
+      return cache.entrySet().iterator().next().getKey();
+    }
 }
