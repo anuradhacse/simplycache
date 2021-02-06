@@ -12,7 +12,8 @@ import org.junit.jupiter.api.Test;
 public class TwoLevelCacheTest {
 
   @Test
-  public void testTwoLevelLRUCache(){
+  public void testTwoLevelLRUCacheBasicOperations(){
+
     Cache<Integer, String> twoLevelCache = new TwoLevelCache<>(3,3, EvictionPolicy.LRU);
 
     twoLevelCache.put(1, "A");
@@ -25,11 +26,17 @@ public class TwoLevelCacheTest {
 
     Assertions.assertEquals(6, twoLevelCache.size());
     Assertions.assertTrue(twoLevelCache.contains(1));
+    Assertions.assertEquals("A", twoLevelCache.get(1));
     Assertions.assertTrue(twoLevelCache.contains(2));
+    Assertions.assertEquals("B", twoLevelCache.get(2));
     Assertions.assertTrue(twoLevelCache.contains(3));
+    Assertions.assertEquals("C", twoLevelCache.get(3));
     Assertions.assertTrue(twoLevelCache.contains(4));
+    Assertions.assertEquals("D", twoLevelCache.get(4));
     Assertions.assertTrue(twoLevelCache.contains(5));
+    Assertions.assertEquals("E", twoLevelCache.get(5));
     Assertions.assertTrue(twoLevelCache.contains(6));
+    Assertions.assertEquals("F", twoLevelCache.get(6));
 
     twoLevelCache.remove(1);
     Assertions.assertNull(twoLevelCache.get(1));
@@ -38,8 +45,48 @@ public class TwoLevelCacheTest {
 
     twoLevelCache.clearCache();
     Assertions.assertTrue(twoLevelCache.isEmpty());
+  }
 
-    twoLevelCache = new TwoLevelCache<>(3,3, EvictionPolicy.LRU);
+  @Test
+  public void testTwoLevelLFUCacheBasicOperations(){
+
+    Cache<Integer, String> twoLevelCache = new TwoLevelCache<>(3,3, EvictionPolicy.LFU);
+
+    twoLevelCache.put(1, "A");
+    twoLevelCache.put(2, "B");
+    twoLevelCache.put(3, "C");
+
+    twoLevelCache.put(4, "D");
+    twoLevelCache.put(5, "E");
+    twoLevelCache.put(6, "F");
+
+    Assertions.assertEquals(6, twoLevelCache.size());
+    Assertions.assertTrue(twoLevelCache.contains(1));
+    Assertions.assertEquals("A", twoLevelCache.get(1));
+    Assertions.assertTrue(twoLevelCache.contains(2));
+    Assertions.assertEquals("B", twoLevelCache.get(2));
+    Assertions.assertTrue(twoLevelCache.contains(3));
+    Assertions.assertEquals("C", twoLevelCache.get(3));
+    Assertions.assertTrue(twoLevelCache.contains(4));
+    Assertions.assertEquals("D", twoLevelCache.get(4));
+    Assertions.assertTrue(twoLevelCache.contains(5));
+    Assertions.assertEquals("E", twoLevelCache.get(5));
+    Assertions.assertTrue(twoLevelCache.contains(6));
+    Assertions.assertEquals("F", twoLevelCache.get(6));
+
+    twoLevelCache.remove(1);
+    Assertions.assertNull(twoLevelCache.get(1));
+    Assertions.assertFalse(twoLevelCache.contains(1));
+    Assertions.assertEquals(5, twoLevelCache.size());
+
+    twoLevelCache.clearCache();
+    Assertions.assertTrue(twoLevelCache.isEmpty());
+  }
+
+  @Test
+  public void testTwoLevelCacheLRUKeyReplacement(){
+
+    Cache<Integer, String> twoLevelCache = new TwoLevelCache<>(3,3, EvictionPolicy.LRU);
 
     twoLevelCache.put(1, "A");
     twoLevelCache.put(2, "B");
@@ -55,10 +102,51 @@ public class TwoLevelCacheTest {
     twoLevelCache.get(5);
     twoLevelCache.get(6);
 
-    //4 will be the LRU key hence it will get replaced
+    //Now cache is full, 4 will be the LRU key hence it will get replaced
     twoLevelCache.put(7, "G");
     Assertions.assertFalse(twoLevelCache.contains(4));
     Assertions.assertNull(twoLevelCache.get(4));
+
+    Assertions.assertTrue(twoLevelCache.contains(7));
+    Assertions.assertEquals("G", twoLevelCache.get(7));
+  }
+
+  @Test
+  public void testTwoLevelCacheLFUKeyReplacement(){
+
+    Cache<Integer, String> twoLevelCache = new TwoLevelCache<>(3,3, EvictionPolicy.LFU);
+
+    twoLevelCache.put(1, "A");
+    twoLevelCache.put(2, "B");
+    twoLevelCache.put(3, "C");
+
+    twoLevelCache.put(4, "D");
+    twoLevelCache.put(5, "E");
+    twoLevelCache.put(6, "F");
+
+    twoLevelCache.get(1);
+    twoLevelCache.get(1);
+
+    twoLevelCache.get(2);
+    twoLevelCache.get(2);
+    twoLevelCache.get(2);
+
+    twoLevelCache.get(3);
+
+    twoLevelCache.get(4);
+    twoLevelCache.get(4);
+
+    twoLevelCache.get(5);
+    twoLevelCache.get(5);
+    twoLevelCache.get(5);
+
+    twoLevelCache.get(6);
+    twoLevelCache.get(6);
+
+    //Now cache is full, 3 will be the LRU key hence it will get replaced
+    twoLevelCache.put(7, "G");
+    Assertions.assertFalse(twoLevelCache.contains(3));
+    Assertions.assertNull(twoLevelCache.get(3));
 
     Assertions.assertTrue(twoLevelCache.contains(7));
     Assertions.assertEquals("G", twoLevelCache.get(7));
