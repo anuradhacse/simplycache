@@ -26,7 +26,7 @@ public class InMemoryCacheTest {
     cache.put(4, "D");
     Assertions.assertEquals(3, cache.size());
 
-    //LRU element is removed from the cache - "A"
+    //LRU element is removed from the container - "A"
     Assertions.assertNull(cache.get(1));
     Assertions.assertEquals("B", cache.get(2));
     Assertions.assertEquals("C", cache.get(3));
@@ -73,7 +73,7 @@ public class InMemoryCacheTest {
     cache.put(4, "D");
     Assertions.assertEquals(3, cache.size());
 
-    //LFU element is removed from the cache since it is the LRU as well - "A"
+    //LFU element is removed from the container since it is the LRU as well - "A"
     Assertions.assertNull(cache.get(1));
     Assertions.assertEquals("B", cache.get(2));
     Assertions.assertEquals("C", cache.get(3));

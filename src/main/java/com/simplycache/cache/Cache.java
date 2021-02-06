@@ -2,13 +2,13 @@ package com.simplycache.cache;
 
 /**
  * @author anuradhaj Date: 2/2/21
- * Interface for defining cache methods.
+ * Interface for defining container methods.
  * See Implementing classes {@link InMemoryCache}, {@link FileSystemCache}
  */
 public interface Cache<K, V> {
 
     /**
-     * API for putting a value into the cache
+     * API for putting a value into the container
      * @param key key
      * @param val value
      * @return true if operation successful
@@ -23,7 +23,7 @@ public interface Cache<K, V> {
     V get(K key);
 
     /**
-     * Get number of items in cache
+     * Get number of items in container
      * @return size
      */
     int size();
@@ -36,13 +36,13 @@ public interface Cache<K, V> {
     boolean contains(K key);
 
     /**
-     * Remove key from cache
+     * Remove key from container
      * @param key
      */
     void remove(K key);
 
     /**
-     * Remove all keys in cache
+     * Remove all keys in container
      */
     void clearCache();
 

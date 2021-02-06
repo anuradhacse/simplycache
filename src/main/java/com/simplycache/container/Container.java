@@ -35,13 +35,13 @@ public interface Container<K,V> {
     boolean containsKey(K key);
 
     /**
-     * Remove key from cache
+     * Remove key from container
      * @param key
      */
     void remove(K key);
 
     /**
-     * Remove all keys in cache
+     * Remove all keys in container
      */
     void clear();
 

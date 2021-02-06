@@ -41,7 +41,7 @@ public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K,
     public void put(K key, V val) {
       File tmpFile = null;
       try {
-        tmpFile = Files.createTempFile(tempFolder, "file_", ".cache").toFile();
+        tmpFile = Files.createTempFile(tempFolder, "file_", ".container").toFile();
         LOGGER.log(Level.INFO, "Created file for key  - {0}",  tmpFile.getAbsolutePath());
       } catch (IOException e) {
         throw new RuntimeException(format("Failed to create file. %s", e.getMessage()));
@@ -52,8 +52,8 @@ public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K,
             ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream)) {
           outputStream.writeObject(val);
           outputStream.flush();
-          cache.put(key, tmpFile.getName());
-          LOGGER.log(Level.INFO, "Put an object with key {0} into file system cache", key);
+          container.put(key, tmpFile.getName());
+          LOGGER.log(Level.INFO, "Put an object with key {0} into file system container", key);
         } catch (IOException e) {
           throw new RuntimeException(format("Failed to write an object to a file '%s': %s",
               tmpFile.getName(), e.getMessage()));
@@ -63,15 +63,15 @@ public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K,
 
     @Override
     public V get(K key) {
-      if(cache.containsKey(key)){
-        String fileName = cache.get(key);
+      if(container.containsKey(key)){
+        String fileName = container.get(key);
         try (InputStream fileInputStream = new FileInputStream(new File(tempFolder + File.separator + fileName));
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
           V value = (V) objectInputStream.readObject();
-          LOGGER.log(Level.INFO, "Get an object with key {0} from file system cache", key);
+          LOGGER.log(Level.INFO, "Get an object with key {0} from file system container", key);
           return value;
         } catch (ClassNotFoundException | IOException e) {
-          throw new RuntimeException("Error while getting from cache");
+          throw new RuntimeException("Error while getting from container");
         }
 
       }

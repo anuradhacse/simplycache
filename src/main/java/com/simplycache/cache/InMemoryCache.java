@@ -4,7 +4,7 @@ import com.simplycache.evictionpolicy.EvictionPolicy;
 
 /**
  * @author anuradhaj Date: 2/2/21
- * InMemory cache implementation
+ * InMemory container implementation
  * This class is not thread safe
  */
 public class InMemoryCache<K, V> extends AbstractCache<K, V, V> {
@@ -15,11 +15,11 @@ public class InMemoryCache<K, V> extends AbstractCache<K, V, V> {
 
     @Override
     public void put(K key, V val) {
-        cache.put(key, val);
+        container.put(key, val);
     }
 
     @Override
     public V get(K key) {
-      return cache.get(key);
+      return container.get(key);
     }
 }
