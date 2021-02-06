@@ -30,26 +30,26 @@ public class TwoLevelCache<K, V extends Serializable> implements Cache<K, V> {
       } else if (level2Cache.contains(key) || !level2Cache.isCacheFull()) {
         level2Cache.put(key, val);
         globalContainer.put(key, val);
+      } else {
+        K keyToReplace = globalContainer.getKeyToReplace();
+        if (level1Cache.contains(keyToReplace)) {
+          level1Cache.remove(keyToReplace);
+          level1Cache.put(key, val);
+        } else if (level2Cache.contains(keyToReplace)) {
+          level2Cache.remove(keyToReplace);
+          level2Cache.put(key, val);
+        }
+        globalContainer.remove(keyToReplace);
       }
-
-      K keyToReplace = globalContainer.getKeyToReplace();
-
-      if (level1Cache.contains(keyToReplace)) {
-        level1Cache.remove(keyToReplace);
-        level1Cache.put(key, val);
-      } else if (level2Cache.contains(keyToReplace)) {
-        level2Cache.remove(keyToReplace);
-        level2Cache.put(key, val);
-      }
-
-      globalContainer.remove(keyToReplace);
     }
 
     @Override
     public V get(K key) {
       if (level1Cache.contains(key)) {
+        globalContainer.get(key);
         return level1Cache.get(key);
       } else if (level2Cache.contains(key)) {
+        globalContainer.get(key);
         return level2Cache.get(key);
       } else {
         //todo warn msg
