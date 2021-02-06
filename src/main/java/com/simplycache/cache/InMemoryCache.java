@@ -1,8 +1,8 @@
 package com.simplycache.cache;
 
 import com.simplycache.evictionpolicy.EvictionPolicy;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author anuradhaj Date: 2/2/21
@@ -11,7 +11,8 @@ import java.util.logging.Logger;
  */
 public class InMemoryCache<K, V> extends AbstractCache<K, V, V> {
 
-    private static final Logger LOGGER = Logger.getLogger(InMemoryCache.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(InMemoryCache.class);
+
 
     public InMemoryCache(int size, EvictionPolicy evictionPolicy) {
      super(size, evictionPolicy);
@@ -19,12 +20,13 @@ public class InMemoryCache<K, V> extends AbstractCache<K, V, V> {
 
     @Override
     public void put(K key, V val) {
-      LOGGER.log(Level.INFO, "Put an object with key {0} into InMemory cache", key);
+      LOGGER.info("Putting an object with key {} into InMemory cache", key);
       container.put(key, val);
     }
 
     @Override
     public V get(K key) {
+      LOGGER.info("Getting an object with key {} into InMemory cache", key);
       return container.get(key);
     }
 }

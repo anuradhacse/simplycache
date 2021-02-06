@@ -11,11 +11,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author anuradhaj Date: 2/3/21
@@ -24,7 +24,8 @@ import java.nio.file.Path;
  */
 public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K, V, String>{
 
-    private static final Logger LOGGER = Logger.getLogger(FileSystemCache.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(FileSystemCache.class);
+
     private final Path tempFolder;
 
     public FileSystemCache(int size, EvictionPolicy evictionPolicy) {
@@ -52,7 +53,7 @@ public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K,
           outputStream.writeObject(val);
           outputStream.flush();
           container.put(key, tmpFile.getName());
-          LOGGER.log(Level.INFO, "Put an object with key {0} into file system cache", key);
+          LOGGER.info("Putting an object with key {} into file system cache", key);
         } catch (IOException e) {
           throw new RuntimeException(format("Failed to write an object to a file '%s': %s",
               tmpFile.getName(), e.getMessage()));
@@ -67,7 +68,7 @@ public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K,
         try (InputStream fileInputStream = new FileInputStream(new File(tempFolder + File.separator + fileName));
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
           V value = (V) objectInputStream.readObject();
-          LOGGER.log(Level.INFO, "Get an object with key {0} from file system cache", key);
+          LOGGER.info("Getting an object with key {} from file system cache", key);
           return value;
         } catch (ClassNotFoundException | IOException e) {
           throw new RuntimeException("Error while getting from container");

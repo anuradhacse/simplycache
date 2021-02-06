@@ -4,11 +4,14 @@ import com.simplycache.container.Container;
 import com.simplycache.evictionpolicy.EvictionPolicy;
 import com.simplycache.util.CacheUtil;
 import java.io.Serializable;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 /**
  * @author anuradhaj Date: 2/4/21
  */
 public class TwoLevelCache<K, V extends Serializable> implements Cache<K, V> {
+
+    private static final Logger LOGGER = LogManager.getLogger(TwoLevelCache.class);
 
     private final InMemoryCache<K, V> level1Cache;
     private final FileSystemCache<K, V> level2Cache;
@@ -23,7 +26,6 @@ public class TwoLevelCache<K, V extends Serializable> implements Cache<K, V> {
 
     @Override
     public void put(K key, V val) {
-
       if (level1Cache.contains(key) || !level1Cache.isCacheFull()) {
         level1Cache.put(key, val);
         globalContainer.put(key, val);
@@ -52,7 +54,7 @@ public class TwoLevelCache<K, V extends Serializable> implements Cache<K, V> {
         globalContainer.get(key);
         return level2Cache.get(key);
       } else {
-        //todo warn msg
+        LOGGER.warn("key {} does not exists", key);
         return null;
       }
     }
@@ -76,7 +78,7 @@ public class TwoLevelCache<K, V extends Serializable> implements Cache<K, V> {
         level2Cache.remove(key);
         globalContainer.remove(key);
       } else {
-        //todo log item not in cache
+        LOGGER.warn("key {} does not exists", key);
       }
     }
 
