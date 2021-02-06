@@ -2,6 +2,7 @@ package com.simplycache.cache;
 
 import static java.lang.String.format;
 
+import com.simplycache.common.ErrorCodes;
 import com.simplycache.evictionpolicy.EvictionPolicy;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +35,7 @@ public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K,
         this.tempFolder = Files.createTempDirectory("simplycache");
         this.tempFolder.toFile().deleteOnExit();
       } catch (IOException e) {
-        throw new RuntimeException(format("Failed to create directory. %s", e.getMessage()));
+        throw new CacheException("Failed to create directory", ErrorCodes.ERROR_CREATING_DIRECTORY, e);
       }
     }
 
@@ -44,7 +45,7 @@ public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K,
       try {
         tmpFile = Files.createTempFile(tempFolder, "file_", ".cache").toFile();
       } catch (IOException e) {
-        throw new RuntimeException(format("Failed to create file. %s", e.getMessage()));
+        throw new CacheException("Failed to create file", ErrorCodes.ERROR_CREATING_FILE, e);
       }
 
       if (tmpFile != null) {
@@ -55,8 +56,7 @@ public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K,
           container.put(key, tmpFile.getName());
           LOGGER.info("Putting an object with key {} into file system cache", key);
         } catch (IOException e) {
-          throw new RuntimeException(format("Failed to write an object to a file '%s': %s",
-              tmpFile.getName(), e.getMessage()));
+          throw new CacheException("Failed write data to file", ErrorCodes.ERROR_WRITING_TO_FILE, e);
         }
       }
     }
@@ -71,9 +71,8 @@ public class FileSystemCache<K, V extends Serializable> extends AbstractCache<K,
           LOGGER.info("Getting an object with key {} from file system cache", key);
           return value;
         } catch (ClassNotFoundException | IOException e) {
-          throw new RuntimeException("Error while getting from container");
+          throw new CacheException("Failed read data from file", ErrorCodes.ERROR_READING_FROM_FILE, e);
         }
-
       }
       return null;
     }
