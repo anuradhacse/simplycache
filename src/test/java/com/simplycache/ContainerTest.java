@@ -19,7 +19,6 @@ public class ContainerTest {
     LRUContainer.put(2, "B");
     LRUContainer.put(3, "C");
 
-
     Assertions.assertEquals(LRUContainer.getKeyToReplace(), 1);
 
     LRUContainer.get(1);

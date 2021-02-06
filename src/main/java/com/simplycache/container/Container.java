@@ -1,7 +1,5 @@
 package com.simplycache.container;
 
-import java.util.Map;
-
 /**
  * @author anuradhaj Date: 2/3/21
  * Cache data holding container data structure with eviction policy support
@@ -45,6 +43,10 @@ public interface Container<K,V> {
      */
     void clear();
 
+    /**
+     * Get the candidate key selected based on the eviction policy
+     * @return Key selected based on the eviction policy
+     */
     K getKeyToReplace();
 
     default boolean isEmpty(){

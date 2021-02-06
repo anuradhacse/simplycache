@@ -43,6 +43,11 @@ public class TwoLevelCacheTest {
     Assertions.assertFalse(twoLevelCache.contains(1));
     Assertions.assertEquals(5, twoLevelCache.size());
 
+    twoLevelCache.remove(5);
+    Assertions.assertNull(twoLevelCache.get(5));
+    Assertions.assertFalse(twoLevelCache.contains(5));
+    Assertions.assertEquals(4, twoLevelCache.size());
+
     twoLevelCache.clearCache();
     Assertions.assertTrue(twoLevelCache.isEmpty());
   }

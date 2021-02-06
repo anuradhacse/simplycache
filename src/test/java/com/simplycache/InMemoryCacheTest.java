@@ -1,8 +1,11 @@
 package com.simplycache;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.simplycache.cache.Cache;
+import com.simplycache.cache.CacheException;
+import com.simplycache.common.ErrorCodes;
 import com.simplycache.evictionpolicy.EvictionPolicy;
 import com.simplycache.cache.InMemoryCache;
 import org.junit.jupiter.api.Assertions;
@@ -110,4 +113,16 @@ public class InMemoryCacheTest {
     Assertions.assertTrue(cache.isEmpty());
   }
 
+  @Test
+  public void testInvalidInitialSize(){
+    try{
+      InMemoryCache<Integer, Integer> inMemoryCache = new InMemoryCache<>(0, EvictionPolicy.LRU);
+      fail("Exception should have thrown");
+    } catch (Exception ex){
+      Assertions.assertNotNull(ex);
+      Assertions.assertTrue(ex instanceof CacheException);
+      Assertions.assertEquals("initial size should be greater than 0", ((CacheException)ex).getMessage());
+      Assertions.assertEquals(ErrorCodes.INITIAL_CACHE_SIZE_ERROR, ((CacheException)ex).getErrorCode());
+    }
+  }
 }
