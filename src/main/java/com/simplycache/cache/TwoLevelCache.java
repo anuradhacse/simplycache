@@ -42,6 +42,7 @@ public class TwoLevelCache<K, V extends Serializable> implements Cache<K, V> {
           level2Cache.put(key, val);
         }
         globalContainer.remove(keyToReplace);
+        globalContainer.put(key, val);
       }
     }
 

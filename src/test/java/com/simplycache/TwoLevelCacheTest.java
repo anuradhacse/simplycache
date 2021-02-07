@@ -111,13 +111,38 @@ public class TwoLevelCacheTest {
     twoLevelCache.get(5);
     twoLevelCache.get(6);
 
-    //Now cache is full, 4 will be the LRU key hence it will get replaced
+    //Now cache is full, 4 will be the LRU key hence it will get replaced when put 7
     twoLevelCache.put(7, "G");
     Assertions.assertFalse(twoLevelCache.contains(4));
     Assertions.assertNull(twoLevelCache.get(4));
 
     Assertions.assertTrue(twoLevelCache.contains(7));
     Assertions.assertEquals("G", twoLevelCache.get(7));
+
+    twoLevelCache.put(1, "L");
+    twoLevelCache.put(2, "M");
+    twoLevelCache.put(3, "N");
+    twoLevelCache.put(5, "O");
+    twoLevelCache.put(6, "P");
+    twoLevelCache.put(7, "Q");
+
+    twoLevelCache.get(1);
+    twoLevelCache.get(2);
+    twoLevelCache.get(3);
+    twoLevelCache.get(5);
+    twoLevelCache.get(7);
+
+    //Lets put a new key, LRU key 6 will get replaced
+    twoLevelCache.put(8,"Z");
+    Assertions.assertFalse(twoLevelCache.contains(6));
+
+    Assertions.assertEquals(6, twoLevelCache.size());
+    Assertions.assertEquals("L", twoLevelCache.get(1));
+    Assertions.assertEquals("M", twoLevelCache.get(2));
+    Assertions.assertEquals("N", twoLevelCache.get(3));
+    Assertions.assertEquals("O", twoLevelCache.get(5));
+    Assertions.assertEquals("Q", twoLevelCache.get(7));
+    Assertions.assertEquals("Z", twoLevelCache.get(8));
   }
 
   @Test
@@ -152,13 +177,44 @@ public class TwoLevelCacheTest {
     twoLevelCache.get(6);
     twoLevelCache.get(6);
 
-    //Now cache is full, 3 will be the LRU key hence it will get replaced
+    //Now cache is full, 3 will be the LFU key hence it will get replaced
     twoLevelCache.put(7, "G");
     Assertions.assertFalse(twoLevelCache.contains(3));
     Assertions.assertNull(twoLevelCache.get(3));
 
     Assertions.assertTrue(twoLevelCache.contains(7));
     Assertions.assertEquals("G", twoLevelCache.get(7));
+
+    twoLevelCache.put(1, "L");
+    twoLevelCache.put(2, "M");
+    twoLevelCache.put(4, "N");
+    twoLevelCache.put(5, "O");
+    twoLevelCache.put(6, "P");
+    twoLevelCache.put(7, "Q");
+
+    twoLevelCache.get(1);
+    twoLevelCache.get(1);
+
+    twoLevelCache.get(2);
+
+    twoLevelCache.get(4);
+    twoLevelCache.get(4);
+
+    twoLevelCache.get(5);
+    twoLevelCache.get(7);
+
+    //Lets put a new key, LFU key 6 will get replaced
+    twoLevelCache.put(8,"Z");
+    Assertions.assertFalse(twoLevelCache.contains(6));
+    Assertions.assertNull(twoLevelCache.get(6));
+
+    Assertions.assertEquals(6, twoLevelCache.size());
+    Assertions.assertEquals("L", twoLevelCache.get(1));
+    Assertions.assertEquals("M", twoLevelCache.get(2));
+    Assertions.assertEquals("N", twoLevelCache.get(4));
+    Assertions.assertEquals("O", twoLevelCache.get(5));
+    Assertions.assertEquals("Q", twoLevelCache.get(7));
+    Assertions.assertEquals("Z", twoLevelCache.get(8));
   }
 
   @Test

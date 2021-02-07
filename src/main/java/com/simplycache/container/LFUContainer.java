@@ -58,6 +58,12 @@ public class LFUContainer<K,V> extends AbstractContainer<K, V> {
     }
 
     @Override
+    public void remove(K key){
+      cache.remove(key);
+      frequencyMap.remove(key);
+    }
+
+    @Override
     public K getKeyToReplace(){
       sortedMap.clear();
       sortedMap.putAll(frequencyMap);

@@ -26,7 +26,7 @@ public class InMemoryCache<K, V> extends AbstractCache<K, V, V> {
 
     @Override
     public V get(K key) {
-      LOGGER.info("Getting an object with key {} into InMemory cache", key);
+      LOGGER.info("Getting an object with key {} from InMemory cache", key);
       return container.get(key);
     }
 }
