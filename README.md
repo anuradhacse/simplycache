@@ -4,7 +4,7 @@
 Two Level Caching.   
 Supported Eviction policies - LRU, LFU
 
-##Usage
+# Usage
 
 ### 1. InMemory Cache
  > Cache<Integer, String> cache = new InMemoryCache<>(3, EvictionPolicy.LRU);  
@@ -17,6 +17,6 @@ Supported Eviction policies - LRU, LFU
    cache.get(1) -> A
 
 ### 3. TwoLevel Cache
-> Cache<Integer, String> cache = new TwoLevelCache<>(3,3, EvictionPolicy.LRU);
+> Cache<Integer, String> cache = new TwoLevelCache<>(3,3, EvictionPolicy.LRU);  
     cache.put(1,"A")  
     cache.get(1) -> A
