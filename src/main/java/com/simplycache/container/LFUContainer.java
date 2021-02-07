@@ -23,9 +23,7 @@ public class LFUContainer<K,V> extends AbstractContainer<K, V> {
       super(new HashMap<>(size));
       initialCapacity = size;
       frequencyMap = new HashMap<>();
-      sortedMap = new TreeMap<>((k1, k2)-> {
-        return frequencyMap.get(k1).compareTo(frequencyMap.get(k2));
-      });
+      sortedMap = new TreeMap<>((k1, k2)-> frequencyMap.get(k1).compareTo(frequencyMap.get(k2)));
     }
 
     @Override
