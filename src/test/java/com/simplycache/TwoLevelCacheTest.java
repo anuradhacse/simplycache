@@ -1,7 +1,11 @@
 package com.simplycache;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.simplycache.cache.Cache;
+import com.simplycache.cache.CacheException;
 import com.simplycache.cache.TwoLevelCache;
+import com.simplycache.common.ErrorCodes;
 import com.simplycache.evictionpolicy.EvictionPolicy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -155,6 +159,19 @@ public class TwoLevelCacheTest {
 
     Assertions.assertTrue(twoLevelCache.contains(7));
     Assertions.assertEquals("G", twoLevelCache.get(7));
+  }
+
+  @Test
+  public void testInvalidInitialSize(){
+    try{
+      TwoLevelCache<Integer, Integer> inMemoryCache = new TwoLevelCache<>(0,0, EvictionPolicy.LFU);
+      fail("Exception should have thrown");
+    } catch (Exception ex){
+      Assertions.assertNotNull(ex);
+      Assertions.assertTrue(ex instanceof CacheException);
+      Assertions.assertEquals("initial size should be greater than 0", ((CacheException)ex).getMessage());
+      Assertions.assertEquals(ErrorCodes.INITIAL_CACHE_SIZE_ERROR, ((CacheException)ex).getErrorCode());
+    }
   }
 
 }
