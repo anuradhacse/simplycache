@@ -31,15 +31,17 @@ public class LFUContainer<K,V> extends AbstractContainer<K, V> {
     @Override
     public V put(K key, V val) {
       if(cache.size() < initialCapacity || cache.containsKey(key)){
-        if(frequencyMap.containsKey(key)){
+        if (frequencyMap.containsKey(key)) {
           frequencyMap.put(key, frequencyMap.get(key) + FREQUENCY);
+        } else {
+          frequencyMap.put(key, FREQUENCY);
         }
-        frequencyMap.put(key, FREQUENCY);
         return cache.put(key, val);
       }
       K replacingKey = getKeyToReplace();
       cache.remove(replacingKey);
       frequencyMap.remove(replacingKey);
+      frequencyMap.put(key, FREQUENCY);
       return cache.put(key, val);
     }
 

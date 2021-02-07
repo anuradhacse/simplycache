@@ -102,6 +102,28 @@ public class FileSystemCacheTest {
     cache.clearCache();
     Assertions.assertTrue(cache.isEmpty());
 
+    cache.put("C", 1);
+    cache.put("D", 2);
+    cache.put("E", 3);
+
+    cache.put("C", 3);
+    cache.put("D", 4);
+    cache.put("D", 5);
+
+    Assertions.assertEquals(3, cache.size());
+    Assertions.assertEquals(3, cache.get("C"));
+    Assertions.assertEquals(5, cache.get("D"));
+    Assertions.assertEquals(3, cache.get("E"));
+
+    //let's put F, then LFU key E will get replaced
+    cache.put("F", 6);
+    Assertions.assertFalse(cache.contains("E"));
+    Assertions.assertNull(cache.get("E"));
+
+    //let's put G, then LFU key F will get replaced
+    cache.put("G", 7);
+    Assertions.assertFalse(cache.contains("F"));
+    Assertions.assertNull(cache.get("F"));
   }
 
 }
