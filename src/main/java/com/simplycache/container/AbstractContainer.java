@@ -8,43 +8,43 @@ import java.util.Map;
  */
 public abstract class AbstractContainer<K,V> implements Container<K,V> {
 
-    protected final Map<K,V> cache;
+    protected final Map<K,V> container;
 
-    AbstractContainer(Map<K, V> cache){
-      this.cache = cache;
+    AbstractContainer(Map<K, V> container){
+      this.container = container;
     }
 
     @Override
     public V put(K key, V val) {
-      return cache.put(key, val);
+      return container.put(key, val);
     }
 
     @Override
     public V get(K key) {
-      return cache.get(key);
+      return container.get(key);
     }
 
     @Override
     public int size() {
-      return cache.size();
+      return container.size();
     }
 
     @Override
     public boolean containsKey(K key) {
-      return cache.containsKey(key);
+      return container.containsKey(key);
     }
 
     @Override
     public void remove(K key) {
-      cache.remove(key);
+      container.remove(key);
     }
 
     @Override
     public void clear() {
-      cache.clear();
+      container.clear();
     }
 
     public K getKeyToReplace(){
-      return cache.entrySet().iterator().next().getKey();
+      return container.entrySet().iterator().next().getKey();
     }
 }

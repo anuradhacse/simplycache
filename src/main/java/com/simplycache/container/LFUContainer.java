@@ -28,19 +28,19 @@ public class LFUContainer<K,V> extends AbstractContainer<K, V> {
 
     @Override
     public V put(K key, V val) {
-      if(cache.size() < initialCapacity || cache.containsKey(key)){
+      if(container.size() < initialCapacity || container.containsKey(key)){
         if (frequencyMap.containsKey(key)) {
           frequencyMap.put(key, frequencyMap.get(key) + FREQUENCY);
         } else {
           frequencyMap.put(key, FREQUENCY);
         }
-        return cache.put(key, val);
+        return container.put(key, val);
       }
       K replacingKey = getKeyToReplace();
-      cache.remove(replacingKey);
+      container.remove(replacingKey);
       frequencyMap.remove(replacingKey);
       frequencyMap.put(key, FREQUENCY);
-      return cache.put(key, val);
+      return container.put(key, val);
     }
 
     @Override
@@ -48,18 +48,18 @@ public class LFUContainer<K,V> extends AbstractContainer<K, V> {
       if(frequencyMap.containsKey(key)){
         frequencyMap.put(key, frequencyMap.get(key) + FREQUENCY);
       }
-      return cache.get(key);
+      return container.get(key);
     }
 
     @Override
     public void clear() {
-      cache.clear();
+      container.clear();
       frequencyMap.clear();
     }
 
     @Override
     public void remove(K key){
-      cache.remove(key);
+      container.remove(key);
       frequencyMap.remove(key);
     }
 
