@@ -43,7 +43,7 @@ abstract class AbstractCache<K, V, T> implements Cache<K, V> {
       container.clear();
     }
 
-    protected boolean isCacheFull(){
+    boolean isCacheFull(){
       return initialSize == container.size();
     }
 }
